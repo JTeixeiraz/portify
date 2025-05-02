@@ -1,0 +1,134 @@
+h1{
+    font-family: 'Roboto', sans-serif;
+    font-size: 3rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 2rem;
+    background: linear-gradient(to right, #8e2de2, #e0e0e0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    margin-top: 0;
+}
+
+/* Container styling */
+#box-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    background: url('../assets/background.jpg') no-repeat center center fixed;
+    background-size: cover;
+  }
+  
+  /* Card-like form */
+  #box-login form {
+    margin-top: 30px;
+    background-color: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    border-radius: 16px;
+    padding: 2rem;
+    width: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 60vh;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  }
+  
+  /* Input groups */
+  .form-input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Labels */
+  .form-input-group label {
+    margin-bottom: 0.5rem;
+    color: #fff;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+  }
+  
+  /* Inputs */
+  .form-input-group input {
+    padding: 0.75rem 1rem;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    border-radius: 12px;
+    background-color: transparent;
+    color: #fff;
+    font-family: 'Roboto', sans-serif;
+    transition: border-color 0.3s;
+  }
+  
+  .form-input-group input:focus {
+    outline: none;
+    border-color: #fff;
+  }
+  
+  /* Button group container */
+  .button-group {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  /* Base button styles */
+  .button-group button {
+    flex: 1;
+    padding: 0.75rem;
+    margin: 0 0.25rem;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    border-radius: 12px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s;
+  }
+  
+  .button-group button:active {
+    transform: scale(0.98);
+  }
+  
+  /* Login button - glass effect */
+  .button-group button:first-child {
+    background: rgba(255, 255, 255, 0.15);
+    background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.1) 100%);
+    border: none;
+    color: #fff;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Register button - transparent */
+  .button-group button:last-child {
+    background: transparent;
+    border: 2px solid #fff;
+    color: #fff;
+  }
+  
+  /* Click effect overlay */
+  .button-group button::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s;
+  }
+  
+  .button-group button:active::after {
+    transform: scaleX(1);
+  }
+  
+  button{
+    margin-top: 30px !important;
+  }
