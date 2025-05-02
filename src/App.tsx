@@ -6,6 +6,7 @@ import '@fontsource/roboto/500.css'; // Medium
 import '@fontsource/roboto/700.css'; // Bold
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Register from './components/Register';
+import Teste from './components/Teste';
 
 function App() {
   return (
@@ -14,9 +15,7 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/login" element={<Login />} />
         <Route path='/register' element={<Register />}/>
-        {/* Adicione suas outras rotas aqui */}
-        {/* <Route path="/register" element={<Register />} /> */}
-        {/* <Route path="/dashboard" element={<Dashboard />} /> */}
+        <Route path="/deucerto" element={<Teste />}/>
       </Routes>
     </BrowserRouter>
   )
