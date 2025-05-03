@@ -60,7 +60,7 @@ function Login() {
 
   return (
     <div id="box-login">
-      <h1>Portify</h1>
+      <h1 id="portify">Portify</h1>
       <form>
         <div className="form-input-group">
           <label>Email</label>

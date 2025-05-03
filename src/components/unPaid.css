@@ -1,0 +1,81 @@
+.card-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.price-card {
+    background-color: rgba(0, 0, 0, 0.7);
+    border: 2px solid #fff;
+    border-radius: 20px;
+    padding: 2rem;
+    width: 320px;
+    text-align: center;
+    color: white;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.price-card:hover {
+    transform: scale(1.05);
+    margin-top: 10px;
+    transition: 0.5s;
+}
+
+.price {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    gap: 0.25rem;
+    margin-bottom: 1rem;
+}
+
+#priceDolar {
+    font-size: 1.5rem;
+    color: #ccc;
+    margin: 0;
+}
+
+#priceNumber {
+    font-size: 3rem;
+    margin: 0;
+    color: #fff;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+    text-align: left;
+}
+
+li {
+    margin: 0.5rem 0;
+    position: relative;
+    padding-left: 1.2rem;
+}
+
+li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #8e2de2;
+}
+
+.purchase-button {
+    margin-top: 1.5rem;
+    background-color: #8e2de2;
+    border: none;
+    border-radius: 10px;
+    padding: 0.75rem 1.5rem;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.purchase-button:hover {
+    background-color: #a972ea;
+}
