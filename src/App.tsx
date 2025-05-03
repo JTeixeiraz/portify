@@ -7,6 +7,7 @@ import '@fontsource/roboto/700.css'; // Bold
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Register from './components/Register';
 import Teste from './components/Teste';
+import Unpaid from './components/unPaidUser';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path='/register' element={<Register />}/>
         <Route path="/deucerto" element={<Teste />}/>
+        <Route path='/plano' element={<Unpaid />}/>
       </Routes>
     </BrowserRouter>
   )

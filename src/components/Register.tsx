@@ -1,6 +1,8 @@
 import "./register.css";
+import { setDoc, doc } from "firebase/firestore";
+import { db } from "../firebase";
 import { auth } from '../firebase';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, User } from 'firebase/auth';
 import { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -21,10 +23,18 @@ function Register() {
     }
   }, []);
 
+  async function createUserDoc (user : User){
+    const userRef = doc(db, "users", user.uid);
+      await setDoc(userRef,{
+        email: user.email,
+        status:"free",
+        plan: "free"
+      });
+  }
+
   function handleRegisterButton(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
     console.log("Botão de registro clicado");
-    
     if (!authInitialized) {
       console.error("Autenticação não inicializada ainda");
       alert("Sistema de autenticação não está pronto. Tente novamente em alguns instantes.");
@@ -52,8 +62,9 @@ function Register() {
     } 
     setIsLoading(true);   
     createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
+      .then(async (userCredential) => {
         console.log("Usuário registrado com sucesso:", userCredential.user);
+        await createUserDoc(userCredential.user);
         alert("Conta criada com sucesso! Redirecionando para a página de login...");
         setTimeout(() => {
           console.log("Navegando para /login");

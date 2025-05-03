@@ -1,8 +1,8 @@
 import "./login.css";
 import '@fontsource/roboto/400.css'; // Regular
-// Importar a autenticação do seu arquivo firebase.ts
 import { auth } from '../firebase';
-// Importar as funções da API modular
+import { getDoc, doc } from "firebase/firestore";
+import { db } from "../firebase";
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
@@ -12,28 +12,39 @@ function Login() {
   const passwordRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
-  
+
+  async function verifyPaidUser (uid : string){
+    const userRef = doc(db, "users", uid);
+    const userSnap = await getDoc(userRef);
+
+    if(userSnap.exists()){
+      console.log("Usuario existe")
+      const data = userSnap.data();
+      if(data.status === "paid"){
+        navigate("/teste")
+      }else{
+        navigate('/plano')
+      }
+    }else{
+      console.log("Erro no codigo, usuario passou pela verificação de login mas nao existe no Doc do firestore!!!! Caso esse else rodar, olhar isso dae");
+    }
+  }
+
   function loginfunctionality(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
     console.log("Botão de login clicado");
-    
     const email = emailRef.current?.value || "";
     const password = passwordRef.current?.value || "";
-    
     if (!email || !password) {
       alert("Por favor, preencha email e senha");
       return;
     }
-    
     setIsLoading(true);
-    
-    // Usar a API modular para fazer login
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         console.log('Login bem-sucedido', userCredential.user);
         alert("Login realizado com sucesso!");
-        // Redirecionar para dashboard ou página principal
-        navigate("/dashboard");
+        verifyPaidUser(userCredential.user.uid);
       })
       .catch((error) => {
         console.error("Erro de login:", error.code, error.message);
