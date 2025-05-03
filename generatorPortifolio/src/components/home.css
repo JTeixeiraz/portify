@@ -1,0 +1,62 @@
+body {
+    margin: 0;
+    padding: 0;
+    color: #fff;
+  }
+  
+  .title {
+    font-family: 'Roboto', sans-serif;
+    font-size: 3rem;
+    font-weight: 700;
+    text-align: center;
+    background: linear-gradient(to right, #8e2de2, #c1a5da);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    margin-top: 10vh;
+  }
+  
+  #card-portifolio-styles {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 20vh;
+    padding: 0 20px;
+  }
+  
+  .card-1, .card-2 {
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    padding: 30px 25px;
+    width: 320px;
+    text-align: center;
+    backdrop-filter: blur(8px);
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .card-1:hover, .card-2:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(182, 108, 255, 0.4);
+  }
+  
+  .card-1 svg, .card-2 svg {
+    font-size: 48px;
+    margin-bottom: 15px;
+    color: #b66cff;
+  }
+  
+  .style-title {
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+    color: #ffffff;
+  }
+  
+  .card-1 p, .card-2 p {
+    font-size: 0.95rem;
+    line-height: 1.4rem;
+    color: #ccc;
+  }
+  
