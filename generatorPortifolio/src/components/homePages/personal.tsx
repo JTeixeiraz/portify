@@ -6,9 +6,57 @@ import { PiTiktokLogo } from "react-icons/pi";
 function Personal() {
     const nameRef = useRef<HTMLInputElement>(null);
     const descriptionRef = useRef<HTMLInputElement>(null);
+    const instaRef =  useRef<HTMLInputElement>(null);
+    const tiktokRef = useRef<HTMLInputElement>(null);
     const [hobbies, setHobbies] = useState<string[]>([""]);
     const [selectedColor, setSelectedColor] = useState<string>("");
     const [selectedLayout, setSelectedLayout] = useState<string>("top");
+
+    //Isso e quando for enviar tudo
+    //NAO ESQUECER DO CODIGO FETCH PARA CONECTAR COM A API
+    function handleSubmit(e: React.FormEvent) {
+        e.preventDefault();
+        const filteredHobbiesArray = hobbies.map((h) => h.trim()).filter((h) => h !== "");
+        if (filteredHobbiesArray.length === 0) {
+            alert("Você precisa adicionar pelo menos um hobby.");
+            return;
+        }
+        const name = nameRef.current?.value || "";
+        const insta = instaRef.current?.value || "";
+        const tiktok = tiktokRef.current?.value || "";
+        const description = descriptionRef.current?.value || "";
+        if (name === "" || description === "") {
+            alert("Não deixe os campos em branco");
+            return;
+        }
+        const payload={
+            type: "Personal",
+            name,
+            description,
+            image: localStorage.getItem("PortifolioImage") || "",
+            hobbies: hobbies,
+            insta: insta,
+            tiktok: tiktok,
+            color: selectedColor,
+            layout: selectedLayout,
+        }
+        fetch("http://localhost:3000/generatePersonal",{
+            method: "POST",
+            headers:{
+                "Content-Type":"application/json",
+            },
+            body: JSON.stringify(payload)
+        })
+        .then((res)=> res.json())
+        .then((res)=>{
+            console.log(res);
+            alert("Portifolio enviado com sucesso")
+        })
+        .catch((erro)=>{
+            console.log(erro);
+            alert("Erro ao enviar portifólio")
+        })
+    }
 
     const handleHobbiesChange = (index: number, value: string) => {
         const updated = [...hobbies];
@@ -53,45 +101,27 @@ function Personal() {
         localStorage.setItem("PortifolioLayout", e.target.value); 
     };
 
-    //Isso e quando for enviar tudo
-    //NAO ESQUECER DO CODIGO FETCH PARA CONECTAR COM A API
-    function handleSubmit(e: React.FormEvent) {
-        e.preventDefault();
-        const filteredHobbiesArray = hobbies.map((h) => h.trim()).filter((h) => h !== "");
-        if (filteredHobbiesArray.length === 0) {
-            alert("Você precisa adicionar pelo menos um hobby.");
-            return;
-        }
-        const name = nameRef.current?.value || "";
-        const description = descriptionRef.current?.value || "";
-        if (name === "" || description === "") {
-            alert("Não deixe os campos em branco");
-            return;
-        }
-        localStorage.setItem("PortifolioHobbies", JSON.stringify(filteredHobbiesArray));
-        localStorage.setItem("PortifolioName", name);
-        localStorage.setItem("PortifolioDescription", description);
-    }
+    
 
     return (
 
-            <form>
+            <form id="form-personal">
                 <div className="input-box">
-                    <h3>Para começar o seu portifolio, vamos começar com o seu nome:</h3>
+                    <h1>Para começar o seu portifolio, vamos começar com o seu nome:</h1>
                     <input type="text" placeholder="seu nome aqui..." ref={nameRef} />
                 </div>
                 <div className="input-box">
-                    <h3>Agora vamos Inserir uma breve descrição, fale sobre você com poucas palavras:</h3>
+                    <h1>Escreva uma breve descrição, fale sobre você com poucas palavras:</h1>
                     <input type="text" placeholder="descrição..." ref={descriptionRef} />
                 </div>
                 <div className="input-box">
-                    <h3>Agora vamos inserir uma foto sua</h3>
+                    <h1>Envie uma foto sua</h1>
                     <h4>Caso deseje não inserir, apenas deixe em branco</h4>
                     <input type="file" accept="image" onChange={handleImageChange} />
                 </div>
                 <hr />
                 <div className="input-box">
-                    <h3>Quais são seus hobbies ou interesses?</h3>
+                    <h1>Quais são seus hobbies ou interesses?</h1>
                     {hobbies.map((hobby, index) => (
                         <div key={index}>
                             <input
@@ -113,19 +143,19 @@ function Personal() {
                 </div>
                 <hr />
                 <div className="input-box">
-                    <h3>Agora nos informe suas redes sociais</h3>
+                    <h1>Agora nos informe suas redes sociais</h1>
                     <div className="social-media-group">
                         <FaInstagram id="insta-logo" />
-                        <input type="text" placeholder="@ do instagram:" />
+                        <input type="text" placeholder="@ do instagram:" ref={instaRef}/>
                     </div>
                     <div className="social-media-group">
                         <PiTiktokLogo id="insta-logo" />
-                        <input type="text" placeholder="@ do TikTok:" />
+                        <input type="text" placeholder="@ do TikTok:" ref={tiktokRef}/>
                     </div>
                 </div>
                 <hr />
                 <div className="input-box">
-                    <h3>Selecione a cor principal do seu portifolio</h3>
+                    <h1>Selecione a cor principal do seu portifolio</h1>
                     <div>
                         <label>
                             <input
@@ -162,7 +192,7 @@ function Personal() {
 
     
                 <div className="input-box">
-                    <h3>Escolha o layout do seu portifolio</h3>
+                    <h1>Escolha o layout do seu portifolio</h1>
                     <div className="layout-options">
                         <div className="layout-option layout-top">
                             <div className="layout-radio">

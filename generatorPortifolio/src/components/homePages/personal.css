@@ -22,7 +22,7 @@ hr{
     color: rgba(0, 0, 0, 0.15);
     width: 50%;
 }
-  form {
+  #form-personal {
     max-width: 600px;
     margin: 60px auto;
     padding: 40px;
@@ -32,11 +32,11 @@ hr{
     display: flex;
     text-align: center;
     flex-direction: column;
-    gap: 30px;
+    gap: 15vh;
     transition: 0.5s;
     align-items: center;
 }
-  form:hover{
+  #form-personal:hover{
     transform: scale(1.03);
     transition: 0.5s;
   }
@@ -281,12 +281,20 @@ html, body {
     padding-bottom: 0 !important;
     overflow-x: hidden; /* Previne barras de rolagem horizontais */
   }
-  
 
-  
- 
+  .project-box{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
 
+  .grup-project{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2vh;
+  }
 
-
-
+  .input-project{
+    width: 20rem;
+  }
   
