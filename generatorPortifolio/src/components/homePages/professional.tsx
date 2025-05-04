@@ -1,7 +1,6 @@
 function Professional(){
     return(
         <>
-        aaaaaaaaaaaaaaa
         </>
     )
 }

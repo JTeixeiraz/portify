@@ -2,7 +2,9 @@ import { IoPerson } from "react-icons/io5";
 import { BsSuitcaseLgFill } from "react-icons/bs";
 import "./home.css";
 import { useNavigate } from "react-router-dom";
-const navigate = useNavigate()
+
+function Home(){
+    const navigate = useNavigate()
 function handlePersonalClick(){
     navigate("/personalPortifolio")
 }
@@ -10,7 +12,6 @@ function handleProfessionalClick(){
     navigate("/professionalPortifolio")
 }
 
-function Home(){
     return (
         <div>
             <h1 className="title">Portify</h1>

@@ -1,77 +1,292 @@
-/* Estrutura geral do formulário */
-form {
+button{
+    flex: 1;
+    padding: 0.75rem;
+    margin: 0 0.25rem;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    border-radius: 12px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s;
+    background: rgba(255, 255, 255, 0.15);
+    background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.1) 100%);
+    border: none;
+    color: #fff;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}  
+hr{
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+    color: rgba(0, 0, 0, 0.15);
+    width: 50%;
+}
+  form {
     max-width: 600px;
-    margin: 4rem auto;
-    padding: 2.5rem;
-    border: 1px solid #ccc;
-    border-radius: 20px;
+    margin: 60px auto;
+    padding: 40px;
+    background-color: rgba(0, 0, 0, 0.15);
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(128, 0, 255, 0.15);
     display: flex;
-    flex-direction: column;
-    gap: 2.5rem;
-    font-family: "Comic Neue", cursive;
-    color: white;
-  }
-  
-  /* Cada caixa de entrada */
-  .input-box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
     text-align: center;
+    flex-direction: column;
+    gap: 30px;
+    transition: 0.5s;
+    align-items: center;
+}
+  form:hover{
+    transform: scale(1.03);
+    transition: 0.5s;
   }
   
-  /* Títulos das seções */
-  .input-box h3 {
-    font-size: 1.3rem;
-    font-weight: normal;
+  .input-box {
+    margin-top: 5vh;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
   }
   
-  /* Subtítulo (foto) */
-  .input-box h4 {
-    font-size: 0.9rem;
-    font-weight: lighter;
-    opacity: 0.8;
+  .input-box h3, .input-box h4 {
+    margin: 0;
+    color: #ccc;
+    font-weight: 500;
   }
   
-  /* Campos de texto */
   .input-box input[type="text"] {
-    width: 80%;
-    padding: 0.8rem 1rem;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    background: transparent;
-    color: white;
-    font-size: 1rem;
-    font-family: inherit;
+    padding: 12px 16px;
+    border: 1px solid #555;
+    background-color: #1a1a1a;
+    color: #fff;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s;
   }
   
-  /* Campo de imagem */
+  .input-box input[type="text"]:focus {
+    border-color: #9f57ff;
+  }
+  
   .input-box input[type="image"] {
-    width: 160px;
-    height: 160px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    object-fit: cover;
-    padding: 0.3rem;
-    background-color: transparent;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    max-width: 150px;
+    margin-top: 10px;
+  }
+  .social-media-group{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  #insta-logo{
+    font-size: 3rem;
+    margin: 0;
+    margin-right: 2rem;
+}
+#buttons-more-menos{
+    width: 100%;
+    display: flex;
+}
+#buttons-more-menos>button{
+    width: 50%;
+}
+.check{
+    display: flex;
+    margin-top: 1.05rem;
+}
+.checkboxes{
+    margin-right: 1.5rem;
+}
+input[type="radio"] {
+    margin-right: 8px;
+    margin-left: 10px;
+}
+
+input[type="radio"]:checked {
+    background-color: #9f57ff;
+}
+
+/* Estilos para as cores do portifólio */
+body[data-theme="blue"] {
+    background-color: #007bff;
+    color: #fff;
+}
+
+body[data-theme="green"] {
+    background-color: #28a745;
+    color: #fff;
+}
+
+body[data-theme="purple"] {
+    background-color: #6f42c1;
+    color: #fff;
+}
+
+/* Estilos para o layout */
+body[data-layout="top"] {
+    /* Cabeçalho no topo */
+    display: flex;
+    flex-direction: column;
+}
+
+body[data-layout="side"] {
+    /* Cabeçalho lateral */
+    display: flex;
+    flex-direction: row;
+}
+
+body[data-layout="none"] {
+    /* Sem cabeçalho */
+    display: block;
+}
+/* Estilo para a seção de seleção de layout */
+.layout-options {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  .layout-option {
+    display: flex;
+    align-items: center;
+    width: 100%;
     cursor: pointer;
   }
   
-  /* Responsividade (opcional) */
+  .layout-radio {
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+  }
+  
+  .layout-preview {
+    width: 200px;
+    height: 120px;
+    border: 2px solid #555;
+    border-radius: 8px;
+    padding: 10px;
+    margin-left: 15px;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+  
+  /* Layout com cabeçalho no topo */
+  .layout-top .layout-preview {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .layout-top .header {
+    height: 40px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    margin-bottom: 10px;
+  }
+  
+  .layout-top .content {
+    display: flex;
+    height: 60px;
+  }
+  
+  .layout-top .content-main {
+    flex: 2;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 6px;
+    margin-right: 10px;
+  }
+  
+  .layout-top .content-side {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 6px;
+  }
+  
+  /* Layout com cabeçalho lateral */
+  .layout-side .layout-preview {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .layout-side .header {
+    width: 60px;
+    height: 100px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    margin-right: 10px;
+  }
+  
+  .layout-side .content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  
+  .layout-side .content-main {
+    flex: 2;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 6px;
+    margin-bottom: 10px;
+    height: 45px;
+  }
+  
+  .layout-side .content-side {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 6px;
+    height: 45px;
+  }
+  
+  /* Layout sem cabeçalho */
+  .layout-none .layout-preview {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .layout-none .content-main {
+    height: 60px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 6px;
+    margin-bottom: 10px;
+  }
+  
+  .layout-none .content-side {
+    height: 30px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 6px;
+  }
+  
+  /* Estilo para destacar a opção selecionada */
+  input[type="radio"]:checked + .layout-preview {
+    border-color: #9f57ff;
+    box-shadow: 0 0 10px rgba(159, 87, 255, 0.5);
+    transform: scale(1.05);
+  }
+  
+  /* Ajustes para o layout responsivo */
   @media (max-width: 600px) {
-    form {
-      width: 90%;
-      padding: 1.5rem;
-    }
-  
-    .input-box input[type="text"] {
-      width: 100%;
-    }
-  
-    .input-box input[type="image"] {
-      width: 120px;
-      height: 120px;
+    .layout-preview {
+      width: 150px;
+      height: 90px;
     }
   }
+
+html, body {
+    border-bottom: none !important;
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+    overflow-x: hidden; /* Previne barras de rolagem horizontais */
+  }
+  
+
+  
+ 
+
+
+
+
   
