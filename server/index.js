@@ -1085,6 +1085,44 @@ background-color: #52e2c1;
             return res.status(500).json({message: "Erro ao fazer deploy", details: data})
         }
 
+        const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+        const GITHUB_USERNAME = "JTeixeiraz";
+
+        const repoName = `portifolio-${Date.now()}-${name}`;
+
+        // 1. Cria o repositório via GitHub API
+        const repoResponse = await fetch('https://api.github.com/user/repos', {
+          method: 'POST',
+          headers: {
+            Authorization: `token ${GITHUB_TOKEN}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: repoName,
+            description: 'Portfólio gerado automaticamente',
+            private: false
+          }),
+        });
+
+        const repoData = await repoResponse.json();
+
+        if (!repoResponse.ok) {
+          console.error("Erro ao criar repositório:", repoData);
+          return res.status(500).json({ message: 'Erro ao criar repositório no GitHub', details: repoData });
+        }
+
+        // 2. Usa `simple-git` para inicializar, adicionar, commit e push
+        const simpleGit = require('simple-git');
+        const git = simpleGit(destinyDirectory);
+
+        await git.init();
+        await git.addRemote('origin', `https://${GITHUB_TOKEN}@github.com/${GITHUB_USERNAME}/${repoName}.git`);
+        await git.add('.');
+        await git.commit('Commit automático do portfólio');
+        await git.push('origin', 'main');
+
+        console.log("Repositório criado e arquivos enviados com sucesso!");
+
         return res.json({
             message:"Deploy feito com sucesso!",
             url: data.url
@@ -1935,6 +1973,44 @@ app.post ("/generatePersonal" , async(req, res)=>{
             console.error(data)
             return res.status(500).json({message: "Erro ao fazer deploy", details: data})
         }
+        const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+        const GITHUB_USERNAME = "JTeixeiraz";
+
+        const repoName = `portifolio-${Date.now()}-${name}`;
+
+        // 1. Cria o repositório via GitHub API
+        const repoResponse = await fetch('https://api.github.com/user/repos', {
+          method: 'POST',
+          headers: {
+            Authorization: `token ${GITHUB_TOKEN}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: repoName,
+            description: 'Portfólio gerado automaticamente',
+            private: false
+          }),
+        });
+
+        const repoData = await repoResponse.json();
+
+        if (!repoResponse.ok) {
+          console.error("Erro ao criar repositório:", repoData);
+          return res.status(500).json({ message: 'Erro ao criar repositório no GitHub', details: repoData });
+        }
+
+        // 2. Usa `simple-git` para inicializar, adicionar, commit e push
+        const simpleGit = require('simple-git');
+        const git = simpleGit(destinyDirectory);
+
+        await git.init();
+        await git.addRemote('origin', `https://${GITHUB_TOKEN}@github.com/${GITHUB_USERNAME}/${repoName}.git`);
+        await git.add('.');
+        await git.commit('Commit automático do portfólio');
+        await git.push('origin', 'main');
+
+        console.log("Repositório criado e arquivos enviados com sucesso!");
+
 
         return res.json({
             message:"Deploy feito com sucesso!",
