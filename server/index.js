@@ -29,7 +29,7 @@ app.post ("/generateProfessional", async (req, res)=>{
     if (type === "Professional") {
         let htmlProfessionalContent = ``;
         let cssProfessioanlContent = ``;
-        const destinyDirectory = path.join(__dirname, 'output');
+        const destinyDirectory = path.join(__dirname, 'output', `build-${Date.now()}`);
         if(!fs.existsSync(destinyDirectory)) fs.mkdirSync(destinyDirectory);
         if(layout === "top"){
             htmlProfessionalContent = `
@@ -1102,6 +1102,7 @@ app.post ("/generatePersonal" , async(req, res)=>{
         type,
         name,
         description,
+        history,
         image,
         hobbies,
         insta,
@@ -1114,7 +1115,7 @@ app.post ("/generatePersonal" , async(req, res)=>{
         //top, side, none
         let htmlPesonalContent = ``;
         let cssPersonalContent = ``;
-        const destinyDirectory = path.join(__dirname, 'output');
+        const destinyDirectory = path.join(__dirname, 'output', `build-${Date.now()}`);
         if(!fs.existsSync(destinyDirectory)) fs.mkdirSync(destinyDirectory);
 
         if(layout === "top"){
@@ -1158,10 +1159,7 @@ app.post ("/generatePersonal" , async(req, res)=>{
                 <section class="about" id="about">
                 <h2>Minha História</h2>
                 <p>
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Totam quis iure obcaecati inventore, dolore cupiditate minima fugit quo eum, non perferendis quas at. Maiores vero nostrum ipsam illo quod aut.
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Numquam eveniet nobis deleniti officia nesciunt quis cum sed perspiciatis ratione illum quo, enim aliquid suscipit minima, consectetur ut exercitationem voluptatem. Obcaecati.
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sequi distinctio quae, delectus doloribus earum error accusamus iusto voluptatum rem quas at autem aperiam dolor in expedita quos itaque omnis iure.
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Alias aut sequi pariatur eligendi natus accusantium, sed repellat ducimus debitis facere saepe nesciunt incidunt iusto, quos id autem omnis doloremque neque?
+                ${history}
                 </p>
                 </section>
 
@@ -1390,9 +1388,7 @@ app.post ("/generatePersonal" , async(req, res)=>{
         <img src="${image}" />
         <h2>Sobre Mim</h2>
         <p>
-          Olá! Me chamo Joãozinho e sou apaixonado por tecnologia desde criança. Adoro aprender coisas novas e me
-          desafiar com projetos diferentes. Atualmente estudo desenvolvimento web e estou criando meu primeiro portfólio
-          pessoal. Também sou curioso por design minimalista e gosto de manter tudo simples, direto e funcional.
+          ${history}
         </p>
       </section>
 
@@ -1708,10 +1704,7 @@ app.post ("/generatePersonal" , async(req, res)=>{
                 <section class="about" id="about">
                 <h2>Minha História</h2>
                 <p>
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Totam quis iure obcaecati inventore, dolore cupiditate minima fugit quo eum, non perferendis quas at. Maiores vero nostrum ipsam illo quod aut.
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Numquam eveniet nobis deleniti officia nesciunt quis cum sed perspiciatis ratione illum quo, enim aliquid suscipit minima, consectetur ut exercitationem voluptatem. Obcaecati.
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sequi distinctio quae, delectus doloribus earum error accusamus iusto voluptatum rem quas at autem aperiam dolor in expedita quos itaque omnis iure.
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Alias aut sequi pariatur eligendi natus accusantium, sed repellat ducimus debitis facere saepe nesciunt incidunt iusto, quos id autem omnis doloremque neque?
+                  ${history}
                 </p>
                 </section>
 

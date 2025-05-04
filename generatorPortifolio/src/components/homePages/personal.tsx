@@ -6,6 +6,7 @@ import { PiTiktokLogo } from "react-icons/pi";
 function Personal() {
     const nameRef = useRef<HTMLInputElement>(null);
     const descriptionRef = useRef<HTMLInputElement>(null);
+    const historyRef = useRef<HTMLInputElement>(null);
     const instaRef =  useRef<HTMLInputElement>(null);
     const tiktokRef = useRef<HTMLInputElement>(null);
     const [hobbies, setHobbies] = useState<string[]>([""]);
@@ -21,6 +22,7 @@ function Personal() {
             alert("Você precisa adicionar pelo menos um hobby.");
             return;
         }
+        const history = historyRef.current?.value || "";
         const name = nameRef.current?.value || "";
         const insta = instaRef.current?.value || "";
         const tiktok = tiktokRef.current?.value || "";
@@ -33,6 +35,7 @@ function Personal() {
             type: "Personal",
             name,
             description,
+            history,
             image: localStorage.getItem("PortifolioImage") || "",
             hobbies: hobbies,
             insta: insta,
@@ -124,7 +127,7 @@ function Personal() {
                 </div>
                 <div className="input-box">
                     <h1>Conte sobre você, sua historia e oque te move:</h1>
-                    <input type="text" placeholder="descrição..." ref={descriptionRef} />
+                    <input type="text" placeholder="descrição..." ref={historyRef} />
                 </div>
                 <div className="input-box">
                     <h1>Envie uma foto sua</h1>

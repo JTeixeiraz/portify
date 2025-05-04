@@ -19,7 +19,7 @@ function Professional() {
     const [selectedColor, setSelectedColor] = useState<string>("");
     const [selectedLayout, setSelectedLayout] = useState<string>("top");
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
         const name = nameRef.current?.value.trim() || "";
@@ -56,14 +56,29 @@ function Professional() {
             image: localStorage.getItem("PortifolioImage") || ""
         };
 
-        fetch("http://localhost:3000/generateProfessional", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload),
-        })
-        .then((res) => res.json())
-        .then(() => alert("Portfólio enviado com sucesso"))
-        .catch(() => alert("Erro ao enviar portfólio"));
+        try {
+            const response = await fetch("http://localhost:3000/generatePersonal",{
+                method: "POST",
+                headers:{
+                    "Content-Type":"application/json",
+                },
+                body: JSON.stringify(payload)
+            })
+            const data = await response.json();
+            if(response.ok){
+                console.log(data);
+                alert("Portifolio gerado com sucesso")
+                const url = data.url;
+                if(url){
+                    window.location.href = url;
+                }
+            }else{
+                alert("Erro ao gerar portifólio.");
+            }
+        } catch (error) {
+            alert("Erro ao enviar portifólio.")
+        }
+        
     };
 
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -138,6 +153,7 @@ function Professional() {
                 <h1>Resumo sobre você:</h1>
                 <input type="text" placeholder="descrição..." ref={descriptionRef} />
             </div>
+
 
             {/* Imagem */}
             <div className="input-box">
