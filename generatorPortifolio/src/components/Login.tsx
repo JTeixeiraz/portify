@@ -21,7 +21,7 @@ function Login() {
       console.log("Usuario existe")
       const data = userSnap.data();
       if(data.status === "paid"){
-        navigate("/teste")
+        navigate("/home")
       }else{
         navigate('/plano')
       }

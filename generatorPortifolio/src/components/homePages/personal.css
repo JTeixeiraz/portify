@@ -1,0 +1,77 @@
+/* Estrutura geral do formulário */
+form {
+    max-width: 600px;
+    margin: 4rem auto;
+    padding: 2.5rem;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    font-family: "Comic Neue", cursive;
+    color: white;
+  }
+  
+  /* Cada caixa de entrada */
+  .input-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    text-align: center;
+  }
+  
+  /* Títulos das seções */
+  .input-box h3 {
+    font-size: 1.3rem;
+    font-weight: normal;
+  }
+  
+  /* Subtítulo (foto) */
+  .input-box h4 {
+    font-size: 0.9rem;
+    font-weight: lighter;
+    opacity: 0.8;
+  }
+  
+  /* Campos de texto */
+  .input-box input[type="text"] {
+    width: 80%;
+    padding: 0.8rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background: transparent;
+    color: white;
+    font-size: 1rem;
+    font-family: inherit;
+  }
+  
+  /* Campo de imagem */
+  .input-box input[type="image"] {
+    width: 160px;
+    height: 160px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    object-fit: cover;
+    padding: 0.3rem;
+    background-color: transparent;
+    cursor: pointer;
+  }
+  
+  /* Responsividade (opcional) */
+  @media (max-width: 600px) {
+    form {
+      width: 90%;
+      padding: 1.5rem;
+    }
+  
+    .input-box input[type="text"] {
+      width: 100%;
+    }
+  
+    .input-box input[type="image"] {
+      width: 120px;
+      height: 120px;
+    }
+  }
+  

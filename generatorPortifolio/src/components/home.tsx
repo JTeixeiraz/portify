@@ -1,12 +1,21 @@
 import { IoPerson } from "react-icons/io5";
 import { BsSuitcaseLgFill } from "react-icons/bs";
 import "./home.css";
+import { useNavigate } from "react-router-dom";
+const navigate = useNavigate()
+function handlePersonalClick(){
+    navigate("/personalPortifolio")
+}
+function handleProfessionalClick(){
+    navigate("/professionalPortifolio")
+}
+
 function Home(){
     return (
         <div>
             <h1 className="title">Portify</h1>
             <div id="card-portifolio-styles">
-                <div className="card-1">
+                <div className="card-1" onClick={handlePersonalClick}>
                     <IoPerson />
                     <h2 className="style-title">Portifolio Pessoal</h2>
                     <p>
@@ -16,7 +25,7 @@ function Home(){
                     em um site leve, moderno e fácil de personalizar.
                     </p>
                 </div> 
-                <div className="card-2">
+                <div className="card-2" onClick={handleProfessionalClick}>
                     <BsSuitcaseLgFill />
                     <h2 className="style-title">Portifolio Profissional</h2>
                     <p>
