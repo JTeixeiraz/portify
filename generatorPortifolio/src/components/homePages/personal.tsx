@@ -14,7 +14,7 @@ function Personal() {
 
     //Isso e quando for enviar tudo
     //NAO ESQUECER DO CODIGO FETCH PARA CONECTAR COM A API
-    function handleSubmit(e: React.FormEvent) {
+    async function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
         const filteredHobbiesArray = hobbies.map((h) => h.trim()).filter((h) => h !== "");
         if (filteredHobbiesArray.length === 0) {
@@ -40,22 +40,30 @@ function Personal() {
             color: selectedColor,
             layout: selectedLayout,
         }
-        fetch("http://localhost:3000/generatePersonal",{
-            method: "POST",
-            headers:{
-                "Content-Type":"application/json",
-            },
-            body: JSON.stringify(payload)
-        })
-        .then((res)=> res.json())
-        .then((res)=>{
-            console.log(res);
-            alert("Portifolio enviado com sucesso")
-        })
-        .catch((erro)=>{
-            console.log(erro);
-            alert("Erro ao enviar portifólio")
-        })
+        try {
+            const response = await fetch("http://localhost:3000/generatePersonal",{
+                method: "POST",
+                headers:{
+                    "Content-Type":"application/json",
+                },
+                body: JSON.stringify(payload)
+            })
+            const data = await response.json();
+            if(response.ok){
+                console.log(data);
+                alert("Portifolio gerado com sucesso")
+                const url = data.url;
+                if(url){
+                    window.location.href = url;
+                }
+            }else{
+                alert("Erro ao gerar portifólio.");
+            }
+        } catch (error) {
+            alert("Erro ao enviar portifólio.")
+        }
+        
+
     }
 
     const handleHobbiesChange = (index: number, value: string) => {
@@ -112,6 +120,10 @@ function Personal() {
                 </div>
                 <div className="input-box">
                     <h1>Escreva uma breve descrição, fale sobre você com poucas palavras:</h1>
+                    <input type="text" placeholder="descrição..." ref={descriptionRef} />
+                </div>
+                <div className="input-box">
+                    <h1>Conte sobre você, sua historia e oque te move:</h1>
                     <input type="text" placeholder="descrição..." ref={descriptionRef} />
                 </div>
                 <div className="input-box">
