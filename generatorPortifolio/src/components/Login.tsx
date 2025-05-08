@@ -1,11 +1,10 @@
-import "./login.css";
-import '@fontsource/roboto/400.css'; // Regular
-import { auth } from '../firebase';
+import { useRef, useState } from "react";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase";
+import { useNavigate } from "react-router-dom";
 import { getDoc, doc } from "firebase/firestore";
 import { db } from "../firebase";
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { useNavigate } from "react-router-dom";
-import { useRef, useState } from "react";
+import { UserCredential } from "firebase/auth";
 
 function Login() {
   const emailRef = useRef<HTMLInputElement>(null);
@@ -13,20 +12,22 @@ function Login() {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
-  async function verifyPaidUser (uid : string){
+  async function verifyPaidUser(uid: string) {
     const userRef = doc(db, "users", uid);
     const userSnap = await getDoc(userRef);
 
-    if(userSnap.exists()){
-      console.log("Usuario existe")
+    if (userSnap.exists()) {
+      console.log("Usuario existe");
       const data = userSnap.data();
-      if(data.status === "paid"){
-        navigate("/home")
-      }else{
-        navigate('/plano')
+      if (data.status === "paid") {
+        navigate("/home");
+      } else {
+        navigate("/plano");
       }
-    }else{
-      console.log("Erro no codigo, usuario passou pela verificação de login mas nao existe no Doc do firestore!!!! Caso esse else rodar, olhar isso dae");
+    } else {
+      console.log(
+        "Erro no código, usuário passou pela verificação de login mas não existe no Doc do firestore"
+      );
     }
   }
 
@@ -41,8 +42,8 @@ function Login() {
     }
     setIsLoading(true);
     signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        console.log('Login bem-sucedido', userCredential.user);
+      .then((userCredential: UserCredential) => {
+        console.log("Login bem-sucedido", userCredential.user);
         alert("Login realizado com sucesso!");
         verifyPaidUser(userCredential.user.uid);
       })
@@ -52,7 +53,7 @@ function Login() {
         setIsLoading(false);
       });
   }
-  
+
   function goToRegister() {
     console.log("Navegando para registro...");
     navigate("/register");
@@ -64,24 +65,21 @@ function Login() {
       <form>
         <div className="form-input-group">
           <label>Email</label>
-          <input type="email" name="" id="user-email" ref={emailRef}/>
+          <input type="email" id="user-email" ref={emailRef} />
         </div>
         <div className="form-input-group">
           <label>Senha</label>
-          <input type="password" name="" id="user-password" ref={passwordRef}/>
+          <input type="password" id="user-password" ref={passwordRef} />
         </div>
         <div className="form-input-group button-group">
-          <button 
-            id="button-login" 
+          <button
+            id="button-login"
             onClick={loginfunctionality}
             disabled={isLoading}
           >
             {isLoading ? "Entrando..." : "Login"}
           </button>
-          <button 
-            type="button" 
-            onClick={goToRegister}
-          >
+          <button type="button" onClick={goToRegister}>
             Cadastro
           </button>
         </div>

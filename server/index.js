@@ -1,17 +1,27 @@
+const cors = require('cors');
 const express = require('express');
 const path = require("path");
 require('dotenv').config();
 const fs = require('fs');
+const bodyParser = require('body-parser')
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 const VERCEL_TOKEN = process.env.VERCEL_TOKEN;
 
+app.use(cors());
 
+app.use(cors({
+  origin: ['http://localhost:5173', 'https://seu-frontend.vercel.app'],
+  methods:['GET', 'POST']
+}))
 app.use(express.json());
 
+app.use(bodyParser.json({limit: '20mb'}))
 
 app.post ("/generateProfessional", async (req, res)=>{
+  console.log("recebendo payload", req.body)
     const {
         type,
         name,
@@ -57,7 +67,7 @@ app.post ("/generateProfessional", async (req, res)=>{
   <main>
     <section id="sobre" class="section full-screen">
       <div class="container">
-        <img src="${image}" alt="" class="profile-img" />
+        <img src="data:image/png;base64,${image}" alt="" class="profile-img" />
         <h1>${name}</h1>
         <h2>${place}</h2>
         <p class="descricao">
@@ -396,7 +406,7 @@ app.post ("/generateProfessional", async (req, res)=>{
     <main class="content">
       <!-- Seção Sobre -->
       <section class="profile" id="about">
-        <img src="${image}" class="profile-img" alt="" />
+        <img src="data:image/png;base64,${image}" class="profile-img" alt="" />
         <h2>Sobre Mim</h2>
         <p>${description}</p>
 
@@ -748,7 +758,7 @@ app.post ("/generateProfessional", async (req, res)=>{
 <main>
 <section id="sobre" class="section full-screen">
   <div class="container">
-    <img src="${image}" alt="" class="profile-img" />
+    <img src="data:image/png;base64,${image}" alt="" class="profile-img" />
     <h1>${name}</h1>
     <h2>${place}</h2>
     <p class="descricao">
@@ -1150,6 +1160,7 @@ app.post ("/generatePersonal" , async(req, res)=>{
         layout
     } = req.body;
 
+
     if(type === "Personal"){
         //top, side, none
         let htmlPesonalContent = ``;
@@ -1185,7 +1196,7 @@ app.post ("/generatePersonal" , async(req, res)=>{
             <main>
                 <section class="hero" id="home">
                 <div class="profile-pic">
-                    <img src="${image}" />
+                    <img src="data:image/png;base64,${image}" />
                 </div>
                 <div class="bio">
                     <h2>${name}</h2>
@@ -1424,7 +1435,7 @@ app.post ("/generatePersonal" , async(req, res)=>{
 
     <main class="content">
       <section class="profile" id="about">
-        <img src="${image}" />
+        <img src="data:image/png;base64,${image}" />
         <h2>Sobre Mim</h2>
         <p>
           ${history}
@@ -1730,7 +1741,7 @@ app.post ("/generatePersonal" , async(req, res)=>{
             <main>
                 <section class="hero" id="home">
                 <div class="profile-pic">
-                    <img src="${image}" />
+                    <img src="data:image/png;base64,${image}" />
                 </div>
                 <div class="bio">
                     <h2>${name}</h2>
@@ -2013,13 +2024,14 @@ app.post ("/generatePersonal" , async(req, res)=>{
         console.log("Repositório criado e arquivos enviados com sucesso!");
 
 
-        return res.json({
+        res.json({
             message:"Deploy feito com sucesso!",
             url: data.url
         })
 
         fs.rmSync(destinyDirectory, {recursive: true, force:true});
-          
+        return;  
+
     }else{
         res.json({message:"Nao foi possivel encontrar o tipo do arquivo"});
     }

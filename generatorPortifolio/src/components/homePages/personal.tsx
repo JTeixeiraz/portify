@@ -15,59 +15,70 @@ function Personal() {
 
     //Isso e quando for enviar tudo
     //NAO ESQUECER DO CODIGO FETCH PARA CONECTAR COM A API
-    async function handleSubmit(e: React.FormEvent) {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+      
         const filteredHobbiesArray = hobbies.map((h) => h.trim()).filter((h) => h !== "");
         if (filteredHobbiesArray.length === 0) {
-            alert("Você precisa adicionar pelo menos um hobby.");
-            return;
+          alert("Você precisa adicionar pelo menos um hobby.");
+          return;
         }
+      
         const history = historyRef.current?.value || "";
         const name = nameRef.current?.value || "";
         const insta = instaRef.current?.value || "";
         const tiktok = tiktokRef.current?.value || "";
         const description = descriptionRef.current?.value || "";
+      
         if (name === "" || description === "") {
-            alert("Não deixe os campos em branco");
-            return;
+          alert("Não deixe os campos em branco");
+          return;
         }
-        const payload={
-            type: "Personal",
-            name,
-            description,
-            history,
-            image: localStorage.getItem("PortifolioImage") || "",
-            hobbies: hobbies,
-            insta: insta,
-            tiktok: tiktok,
-            color: selectedColor,
-            layout: selectedLayout,
-        }
+      
+        const payload = {
+          type: "Personal",
+          name,
+          description,
+          history,
+          image: localStorage.getItem("PortifolioImage") || "",
+          hobbies: hobbies,
+          insta: insta,
+          tiktok: tiktok,
+          color: selectedColor,
+          layout: selectedLayout,
+        };
+          // Log para verificar o payload
+  console.log("Payload enviado:", payload);
         try {
-            const response = await fetch("http://localhost:3000/generatePersonal",{
-                method: "POST",
-                headers:{
-                    "Content-Type":"application/json",
-                },
-                body: JSON.stringify(payload)
-            })
-            const data = await response.json();
-            if(response.ok){
-                console.log(data);
-                alert("Portifolio gerado com sucesso")
-                const url = data.url;
-                if(url){
-                    window.location.href = url;
-                }
-            }else{
-                alert("Erro ao gerar portifólio.");
+          const response = await fetch("https://backend-1nfy.onrender.com/generatePersonal", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(payload),
+          });
+      
+          // Verifique o que está sendo retornado como texto
+          const responseText = await response.text(); // Captura a resposta como texto
+      
+          console.log("Resposta recebida:", responseText); // Exibe a resposta recebida no console
+      
+          if (response.ok) {
+            const data = JSON.parse(responseText); // Parseia a resposta se for JSON
+            alert("Portifolio gerado com sucesso");
+            const url = data.url;
+            if (url) {
+              window.location.href = url;
             }
+          } else {
+            alert("Erro ao gerar portifólio.");
+          }
         } catch (error) {
-            alert("Erro ao enviar portifólio.")
+          alert("Erro ao enviar portifólio.");
+          console.error("Erro real ao enviar:", error);
         }
-        
-
-    }
+      };
+      
 
     const handleHobbiesChange = (index: number, value: string) => {
         const updated = [...hobbies];

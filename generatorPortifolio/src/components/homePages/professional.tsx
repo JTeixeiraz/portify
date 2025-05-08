@@ -57,7 +57,7 @@ function Professional() {
         };
 
         try {
-            const response = await fetch("http://localhost:3000/generatePersonal",{
+            const response = await fetch("https://backend-1nfy.onrender.com/generatePersonal",{
                 method: "POST",
                 headers:{
                     "Content-Type":"application/json",
